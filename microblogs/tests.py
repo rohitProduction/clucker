@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from .models import User
+from .models import Post
 
 class UserModelTestCase(TestCase):
     def setUp(self):
@@ -12,6 +13,7 @@ class UserModelTestCase(TestCase):
             password='Password123',
             bio='The quick brown fox jumps over the lazy dog.'
         )
+
 
     def test_valid_user(self):
         self._assert_user_is_valid()
@@ -62,7 +64,15 @@ class UserModelTestCase(TestCase):
         self._assert_user_is_invalid()
 
 
+    def test_valid_post(self):
+        self.post = Post(self.user, "fff", "2016-09-21")
+        self._assert_user_is_valid()
 
+    def _assert_post_is_valid(self):
+        try:
+            self.post.full_clean()
+        except (ValidationError):
+            self.fail('Test post should be valid')
 
     def _assert_user_is_valid(self):
         try:
