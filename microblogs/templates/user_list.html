@@ -1,0 +1,13 @@
+<html>
+<head>
+  <title>Clucker</title>
+</head>
+  <body>
+    <h1>User List</h1>
+    <ul>
+      {% for user in u_list %}
+      <li>{{ user.username }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

@@ -58,21 +58,9 @@ class UserModelTestCase(TestCase):
         self.user.username = '@@johndoe'
         self._assert_user_is_invalid()
 
-
     def test_username_cannot_be_over_30_characters_long(self):
         self.user.username = '@' + 'x' * 30
         self._assert_user_is_invalid()
-
-
-    def test_valid_post(self):
-        self.post = Post(self.user, "fff", "2016-09-21")
-        self._assert_user_is_valid()
-
-    def _assert_post_is_valid(self):
-        try:
-            self.post.full_clean()
-        except (ValidationError):
-            self.fail('Test post should be valid')
 
     def _assert_user_is_valid(self):
         try:

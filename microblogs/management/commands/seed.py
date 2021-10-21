@@ -12,6 +12,28 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for i in range(100):
+            name = self.faker.first_name()
+            User.objects.create_user(
+            "@" + name + str(i),
+            first_name = name,
+            last_name = self.faker.last_name(),
+            email = name + "@example.org",
+            bio = self.faker.text(),
+            password = self.faker.password()
+            )
+"""
+        for i in range(100):
+            User.objects.create_user(
+            self.faker.name(),
+            first_name = self.faker.first_name(),
+            last_name = self.faker.last_name(),
+            email = self.faker.email(),
+            bio = self.faker.text(),
+            password = self.faker.password()
+            )
+"""
+"""
+        for i in range(100):
             user = User()
             user.username = self.faker.name()
             user.first_name = self.faker.first_name()
@@ -19,14 +41,4 @@ class Command(BaseCommand):
             user.email = self.faker.email()
             user.bio = self.faker.text()
             user.save()
-
-            """
-            User.objects.create_user(
-            username = self.faker.name(),
-            first_name = self.faker.first_name(),
-            last_name = self.faker.last_name(),
-            email = self.faker.email()
-            bio = self.faker.text()
-            password = self.faker.password()
-            )
-            """
+"""

@@ -11,12 +11,14 @@ class User(AbstractUser):
             message='Username must consist of @ follwed by at least three alphanumbericals'
         )]
     )
-    bio = models.CharField(max_length = 520)
-
+    first_name = models.CharField(max_length = 50, blank = False)
+    last_name = models.CharField(max_length = 50, blank = False)
+    email = models.EmailField(unique = True, blank = False)
+    bio = models.CharField(max_length = 520, blank = True)
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete = models.CASCADE, blank = False)
-    text = models.TextField(max_length=280)
+    text = models.CharField(max_length=280)
     created_at = models.DateTimeField(auto_now = False, auto_now_add = True)
 
     class Meta:

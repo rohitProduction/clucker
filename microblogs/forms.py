@@ -1,6 +1,10 @@
 from django import forms
 from .models import User, Post
 
+class LogInForm(forms.Form):
+    username = forms.CharField(label = "Username")
+    password = forms.CharField(label = "Password", widget = forms.PasswordInput())
+
 class SignUpForm(forms.ModelForm):
     class Meta:
         model = User
@@ -33,3 +37,4 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['text']
+        widgets = { 'text': forms.Textarea() }
