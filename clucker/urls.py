@@ -25,4 +25,6 @@ urlpatterns = [
     path('log_out/', views.log_out, name = 'log_out'),
     path('feed/', views.feed, name = 'feed'),
     path('users/', views.user_list, name = 'user_list'),
+    path('user/<int:user_id>', views.show_user, name = 'show_user'),
+    path('new_post/', views.new_post, name = 'new_post'),
 ]

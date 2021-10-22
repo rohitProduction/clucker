@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .forms import SignUpForm, PostForm, LogInForm
-from .models import User
+from .models import User, Post
 
 def home(request):
     return render(request, 'home.html')
@@ -36,10 +36,26 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
+def new_post(request):
+    if request.method =='POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            post = Post(author = user, text = form['text'].value())
+            post.save()
+            return redirect('feed')
+    else:
+        form = PostForm()
+    return render(request, 'new_post.html', {'form': form})
+
 def feed(request):
-    form = PostForm()
-    return render(request, 'feed.html', {'form': form})
+    posts = Post.objects.all()
+    return render(request, 'feed.html', {'posts': posts})
 
 def user_list(request):
     u_list = User.objects.all()
     return render(request, 'user_list.html', {'u_list': u_list})
+
+def show_user(request, user_id):
+    user = User.objects.all()[user_id]
+    return render(request, 'show_user.html', {'user': user})

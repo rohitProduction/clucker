@@ -38,3 +38,12 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['text']
         widgets = { 'text': forms.Textarea() }
+
+    def save(self):
+        super().save(commit = False)
+        post = Post(
+            author = self.cleaned_data.get('author'),
+            text = self.cleaned_data.get('text'),
+            created_at = self.cleaned_data.get('created_at'),
+        )
+        return post
